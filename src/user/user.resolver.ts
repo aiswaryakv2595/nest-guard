@@ -49,6 +49,7 @@ async addstaff(@Args('staffid') staffid:string,
    }
    //add student to school
    @Mutation(() => [Student])
+   @UseGuards(JwtAuthGuard)
    async studrel(@Args('studentid') studentid:string,
    @Args('name') name:string):Promise<any>{
      return this.userService.studrel(studentid,name);
