@@ -4,6 +4,7 @@ import { UserResolver } from './user.resolver';
 import { JwtModule } from '@nestjs/jwt';
 import * as neo4j from 'neo4j-driver';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { UserController } from './user.controller';
 
 export const UserProvider = {
   provide: 'Neo4j',
@@ -17,6 +18,7 @@ export const UserProvider = {
       signOptions: { expiresIn: '1d' },
     })],
   exports: ['Neo4j'],
-  providers: [UserService, UserResolver,UserProvider,JwtAuthGuard]
+  providers: [UserService, UserResolver,UserProvider,JwtAuthGuard],
+  controllers: [UserController]
 })
 export class UserModule {}

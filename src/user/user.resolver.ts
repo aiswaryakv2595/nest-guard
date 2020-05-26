@@ -16,7 +16,7 @@ export class UserResolver {
     constructor(private readonly userService: UserService) {}
    
     @Query(() => [Student])
-   @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
   async findAll() {
    // return 'helo';
     return this.userService.findAll();
@@ -33,7 +33,7 @@ export class UserResolver {
             }
 
    @Mutation(() => [Staff])
-            // @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
 async addstaff(@Args('staffid') staffid:string,
 @Args('name') name:string,@Args('email') email:string,
 @Args('designation') designation:string,
@@ -49,7 +49,7 @@ async addstaff(@Args('staffid') staffid:string,
    }
    //add student to school
    @Mutation(() => [Student])
-   @UseGuards(JwtAuthGuard)
+   //@UseGuards(JwtAuthGuard)
    async studrel(@Args('studentid') studentid:string,
    @Args('name') name:string):Promise<any>{
      return this.userService.studrel(studentid,name);
