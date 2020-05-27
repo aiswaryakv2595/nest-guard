@@ -31,6 +31,19 @@ export class UserResolver {
   async login(@Args('email') email:string,@Args('password') password:string):Promise<any>{
           return this.userService.login(email,password);     
             }
+//update
+    @Mutation(() => [Entity])
+    async updateschool(@Args('id') id:string,
+    @Args('name') name:string,
+    @Args('email') email:string,
+    @Args('password') password:string){
+      return this.userService.updateschool(id,name,email,password);     
+        }  
+  //delete school
+  @Mutation(() => [Entity])   
+  async deleteschool(@Args('id') id:string){
+    return this.userService.deleteschool(id);
+  }   
 
    @Mutation(() => [Staff])
   // @UseGuards(AuthGuard)

@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Body, Post, UseGuards, Patch, Param, Delete } from '@nestjs/common';
 import { UserResolver } from './user.resolver';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
@@ -12,6 +12,18 @@ export class UserController {
     @Post()
     login(@Body('email') email:string,@Body('password') password:string){
         return this.userResolver.login(email,password);
+    }
+    //update
+    @Patch(':id')
+    updateschool(@Param('id') id:string,@Body('name') name:string,
+    @Body('email') email:string,
+    @Body('password') password:string){
+        return this.userResolver.updateschool(id,name,email,password);
+    }
+    //delete school
+    @Delete(':id')
+    deleteschool(@Param('id') id:string){
+        return this.userResolver.deleteschool(id);
     }
     @Post('addstaff')
     addStaff(@Body('staffid') staffid:string,

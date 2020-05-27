@@ -103,6 +103,74 @@ else{
         console.log(err);
     });
        }
+       //update school
+async updateschool(id:string,name:string,email:string,password:string){
+  let data=[];
+  if(name){
+    const session=this.neo4j.session();
+  session.run(`MATCH(p:school) WHERE id(p)=${id} 
+  SET p.name={nameParam}  RETURN p`,{nameParam:name})
+  
+  .then(result => {
+    session.close();
+    result.records.map(value => {
+      const node = value.get(0);
+    
+      data.push({
+      name:node.properties.name
+      });
+          });
+    console.log(data);
+return data;
+  })
+}
+if(email){
+  const session=this.neo4j.session();
+ session.run(`MATCH(p:school) WHERE id(p)=${id} 
+SET p.email={emailParam}  RETURN p`,{emailParam:email})
+
+ .then(result => {
+   session.close();
+   result.records.map(value => {
+    const node = value.get(0);
+  
+    data.push({
+    email:node.properties.email
+    }); 
+  });
+  console.log(data);
+ return data;
+ })
+ 
+}
+//-----
+if(password){
+  const session=this.neo4j.session();
+session.run(`MATCH(p:school) WHERE id(p)=${id} 
+SET p.password={passParam} RETURN p`,{passParam:password})
+
+.then(result => {
+  session.close();
+  result.records.map(value => {
+    const node = value.get(0);
+  
+    data.push({
+    password:node.properties.password
+    }); 
+    
+  });
+  console.log(data);
+  return data;
+})
+}
+
+}
+//delete school
+async deleteschool(id:string){
+  const session=this.neo4j.session();
+  return session.run(`MATCH(p:school) WHERE id(p)=${id} DELETE p`);
+  
+}
 
 //--add staff
 async addstaff(staffid:string,name:string,email:string,designation:string,salary:number){
