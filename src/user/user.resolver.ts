@@ -43,7 +43,12 @@ export class UserResolver {
   @Mutation(() => [Entity])   
   async deleteschool(@Args('id') id:string){
     return this.userService.deleteschool(id);
-  }   
+  } 
+   //delete student
+   @Mutation(() => [Staff])   
+   async deletestaff(@Args('id') id:string){
+     return this.userService.deletestaff(id);
+   }   
 
    @Mutation(() => [Staff])
   // @UseGuards(AuthGuard)

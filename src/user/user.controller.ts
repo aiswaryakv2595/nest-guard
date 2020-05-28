@@ -25,19 +25,23 @@ export class UserController {
     deleteschool(@Param('id') id:string){
         return this.userResolver.deleteschool(id);
     }
-    @Post('addstaff')
+    @Delete('/staff/:id')
+    deletestaff(@Param('id') id:string){
+        return this.userResolver.deletestaff(id);
+    }
+    @Post('/staff/add')
     addStaff(@Body('staffid') staffid:string,
     @Body('name') name:string,@Body('email') email:string,
     @Body('designation') designation:string,
     @Body('salary') salary:number){
         return this.userResolver.addstaff(staffid,name,email,designation,salary)
     }
-    @Post('staffrel')
+    @Post('/staff/addrel')
     staffrel(@Body('staffid') staffid:string,
     @Body('name') name:string){
         return this.userResolver.staffrel(staffid,name)
     }
-    @Post('studentrel')
+    @Post('/student/addrel')
     studrel(@Body('studentid') studentid:string,
     @Body('name') name:string){
         return this.userResolver.studrel(studentid,name)

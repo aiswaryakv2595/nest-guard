@@ -168,8 +168,16 @@ SET p.password={passParam} RETURN p`,{passParam:password})
 //delete school
 async deleteschool(id:string){
   const session=this.neo4j.session();
-  return session.run(`MATCH(p:school) WHERE id(p)=${id} DELETE p`);
+  return session.run(`MATCH(p:school) WHERE id(p)=${id} DETACH DELETE p`);
   
+}
+//delete staff
+async deletestaff(id:string){
+  const session=this.neo4j.session();
+  return session.run(`MATCH(n:staff) WHERE id(n)=${id} DETACH DELETE n`)
+  .then(result =>{
+    return true;
+  })
 }
 
 //--add staff
@@ -177,7 +185,7 @@ async addstaff(staffid:string,name:string,email:string,designation:string,salary
   let data=[];
   const session = this.neo4j.session();
 
-  return session.run(`MERGE(p:staff {staffid:{sid},name:{nameParam},email:{emailParam},designation:{desParam},salary:{salary},status:"0"})
+  return session.run(`MERGE(p:staff {staffid:{sid},name:{nameParam},email:{emailParam},designation:{desParam},salary:{salary},status:0})
 RETURN p`,{sid:staffid,nameParam:name,emailParam:email, desParam:designation,salary:salary})
 .then(result => {
  
@@ -206,7 +214,7 @@ async staffrel(staffid:string,name:string){
   let data=[];
   const session = this.neo4j.session();
   return session.run(`MATCH(n:school),(s:staff{name:{nameParam}}) WHERE s.staffid={sid}
-  MERGE (s)-[r:WORKING]-(n) ON MATCH SET s.status="1" RETURN s`,{nameParam:name,sid:staffid})
+  MERGE (s)-[r:WORKING]-(n) ON MATCH SET s.status=1 RETURN s`,{nameParam:name,sid:staffid})
   .then(result => {
  
     session.close();

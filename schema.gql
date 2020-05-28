@@ -15,6 +15,7 @@ type Mutation {
   login(password: String!, email: String!): [Entity!]!
   updateschool(password: String!, email: String!, name: String!, id: String!): [Entity!]!
   deleteschool(id: String!): [Entity!]!
+  deletestaff(id: String!): [Staff!]!
   addstaff(salary: Float!, designation: String!, email: String!, name: String!, staffid: String!): [Staff!]!
   staffrel(name: String!, staffid: String!): [Staff!]!
   studrel(name: String!, studentid: String!): [Student!]!
