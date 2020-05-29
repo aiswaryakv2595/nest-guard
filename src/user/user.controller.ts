@@ -1,12 +1,17 @@
 import { Controller, Get, Body, Post, UseGuards, Patch, Param, Delete } from '@nestjs/common';
 import { UserResolver } from './user.resolver';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import {User} from './user.decorator';
+
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userResolver: UserResolver) {}
     @Get()
-    findAll(){
+    @UseGuards(JwtAuthGuard)
+    findAll(@User() user){
+        console.log(user);
+
         return this.userResolver.findAll();
     }
     @Post()

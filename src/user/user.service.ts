@@ -56,7 +56,7 @@ export class UserService {
         // //driver.close();
         if(flag==1){
           
-          const _user: JwtPayload = { username:"email",password: "password" };
+          const _user: JwtPayload = { username:email,password: password };
           this.GenerateToken(_user);
           
          }

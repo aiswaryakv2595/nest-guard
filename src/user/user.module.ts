@@ -15,7 +15,7 @@ export const UserProvider = {
     // PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: 'secrete key',
-      signOptions: { expiresIn: '1d' },
+      signOptions: { expiresIn: '600s' },
     })],
   exports: ['Neo4j'],
   providers: [UserService, UserResolver,UserProvider,JwtAuthGuard],

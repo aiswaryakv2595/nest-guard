@@ -2,23 +2,16 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { SignupInput } from './input/signupInput';
 import { Entity, Staff} from './entity';
 import { UserService } from './user.service';
-import { UseGuards, createParamDecorator } from '@nestjs/common';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { AuthGuard } from './auth.guard';
 import { Student } from './studentdet';
 
 
-export const CurrentUser = createParamDecorator(
-  (data, [root, args, ctx, info]) => ctx.req.user,
-);
+
 @Resolver(Entity)
 export class UserResolver {
     constructor(private readonly userService: UserService) {}
    
     @Query(() => [Student])
-    //@UseGuards(JwtAuthGuard)
   async findAll() {
-   // return 'helo';
     return this.userService.findAll();
   }
     @Mutation(() => [Entity])
@@ -27,11 +20,11 @@ export class UserResolver {
         }
 
     @Mutation(() => [Entity])
-    // @UseGuards(AuthGuard)
+    
   async login(@Args('email') email:string,@Args('password') password:string):Promise<any>{
           return this.userService.login(email,password);     
             }
-//update
+//update school
     @Mutation(() => [Entity])
     async updateschool(@Args('id') id:string,
     @Args('name') name:string,
@@ -51,7 +44,7 @@ export class UserResolver {
    }   
 
    @Mutation(() => [Staff])
-  // @UseGuards(AuthGuard)
+  
 async addstaff(@Args('staffid') staffid:string,
 @Args('name') name:string,@Args('email') email:string,
 @Args('designation') designation:string,
@@ -67,15 +60,9 @@ async addstaff(@Args('staffid') staffid:string,
    }
    //add student to school
    @Mutation(() => [Student])
-   //@UseGuards(JwtAuthGuard)
    async studrel(@Args('studentid') studentid:string,
    @Args('name') name:string):Promise<any>{
      return this.userService.studrel(studentid,name);
    }
-    //@Query(() => [Entity], { name: 'get' })
-    // @UseGuards(AuthGuard) 
-    // whoAmI(@CurrentUser() user:SignupInput) {
-    //   console.log(user);
-    //   return this.userService.findOne(user.id);
-    // }
+   
 }
